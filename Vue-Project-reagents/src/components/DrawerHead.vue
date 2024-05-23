@@ -29,6 +29,6 @@ const { closeDrawer } = inject('cart')
         stroke-linejoin="round"
       />
     </svg>
-    <h2 class="text-2xl font-bold">Корзина</h2>
+    <h2 class="text-2xl font-bold ">Корзина</h2>
   </div>
 </template>

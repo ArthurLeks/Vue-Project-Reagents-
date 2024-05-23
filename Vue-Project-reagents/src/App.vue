@@ -3,6 +3,9 @@ import { ref, provide, watch, computed } from 'vue'
 
 import Header from './components/Header.vue'
 import Drawer from './components/Drawer.vue'
+import MainList from './components/MainList.vue'
+import Footer from './components/Footer.vue'
+
 
 const cart = ref([])
 const isCreatingOrder = ref(false)
@@ -48,11 +51,18 @@ provide('cart', {
 </script>
 
 <template>
+  
   <Drawer v-if="drawerOpen" :total-price="totalPrice" :vat-price="vatPrice" />
-  <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-14">
-    <Header :total-price="totalPrice" @open-drawer="openDrawer" />
-    <div class="p-10">
-      <router-view></router-view>
-    </div>
-  </div>
+  
+  <Header :total-price="totalPrice" @open-drawer="openDrawer" />
+  
+  <MainList />
+  
+  <div class="p-10">
+  <router-view></router-view>
+</div>
+
+  <Footer />
+
+
 </template>

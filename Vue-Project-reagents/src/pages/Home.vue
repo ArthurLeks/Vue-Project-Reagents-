@@ -121,27 +121,28 @@ watch(filters, fetchItems)
 </script>
 
 <template>
-  <div class="flex justify-between items-center">
-    <h2 class="text-3xl font-bold mb-8">Все реактивы</h2>
-    <div class="flex gap-4">
-      <select @change="onChangeSelect" class="py-2 px-3 border rounded-md outline-none">
-        <option value="name">По названию</option>
-        <option value="price">По цене (дешевые)</option>
-        <option value="-price">По названию (дорогие)</option>
-      </select>
-
-      <div class="relative">
-        <img class="absolute left-4 top-3" src="/search.svg" alt="поиск" />
-        <input
-          @input="onChangeSearchInput"
-          class="border rounded-md py-2 pl-11 pr-4 outline-none focus:border-gray-400"
-          type="text"
-          placeholder="Поиск..."
-        />
+  <div class="p-8 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 shadow-xl">
+    <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+      <h2 class="font-bold text-4xl tracking-tight text-white sm:text-5xl md:text-6xl">Все товары</h2>
+      <div class="flex gap-6 mt-6 md:mt-0">
+        <div class="relative">
+          <img class="absolute left-4 top-3 h-6 w-6 text-white/70" src="/search.svg" alt="поиск" />
+          <input
+            @input="onChangeSearchInput"
+            class="bg-white/20 border-2 border-white/50 rounded-full py-3 pl-12 pr-5 outline-none focus:border-white text-white placeholder-white/70 transition-all duration-300 ease-in-out"
+            type="text"
+            placeholder="Поиск..."
+          />
+        </div>
+        <select @change="onChangeSelect" class="bg-white/20 border-2 border-white/50 text-white rounded-full py-3 px-4 outline-none focus:border-white appearance-none transition-all duration-300 ease-in-out">
+          <option value="title">По названию</option>
+          <option value="price">По цене (дешевые)</option>
+          <option value="-price">По цене (дорогие)</option>
+        </select>
       </div>
     </div>
-  </div>
-  <div class="mt-10">
-    <CardList :items="items" @add-to-favorite="addToFavorite" @add-to-cart="onClickAddPlus" />
+    <div class="mt-12">
+      <CardList :items="items" @add-to-favorite="addToFavorite" @add-to-cart="onClickAddPlus" />
+    </div>
   </div>
 </template>

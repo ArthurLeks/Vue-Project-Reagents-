@@ -39,47 +39,52 @@ const buttonDisabled = computed(() => isCreating.value || cartIsEmpty.value)
 </script>
 
 <template>
-  <div class="fixed top-0 left-0 h-full w-full bg-black z-10 opacity-70"></div>
-  <div class="bg-white w-96 h-full fixed right-0 top-0 z-20 p-8">
+  <div class="fixed inset-0 bg-gray-900 bg-opacity-50 z-10" @click="closeDrawer"></div>
+  <div
+    class="bg-white w-full max-w-xs h-auto fixed right-0 bottom-0 z-20 p-4 shadow-lg transition-transform transform sm:max-w-xs md:max-w-sm lg:w-1/5 rounded-tl-lg"
+  >
     <DrawerHead />
 
-    <div v-if="!totalPrice || orderId" class="flex h-full items-center">
+    <div
+      v-if="!totalPrice && !orderId"
+      class="flex flex-col items-center justify-center h-full text-center"
+    >
       <InfoBlock
-        v-if="!totalPrice && !orderId"
-        title="Корзина пустая"
-        description="Добавьте товар,чтобы сделать заказ."
+        title="Корзина пуста"
+        description="Добавьте товар, чтобы сделать заказ."
         image-url="/package-icon.png"
       />
+    </div>
+    <div
+      v-else-if="orderId"
+      class="flex flex-col items-center justify-center h-full text-center"
+    >
       <InfoBlock
-        v-if="orderId"
         title="Заказ оформлен!"
         :description="`Ваш заказ #${orderId} скоро будет передан курьерской доставке`"
         image-url="/order-success-icon.png"
       />
     </div>
 
-    <div v-else>
+    <div v-else class="overflow-y-auto max-h-80">
       <CartItemList />
-      <div class="flex flex-col gap-4 mt-7">
-        <div class="flex gap-2">
+      <div class="bg-gray-100 rounded-lg px-4 py-3 mt-4 flex flex-col gap-2">
+        <div class="flex justify-between items-center text-sm font-medium text-gray-600">
           <span>Итого:</span>
-          <div class="flex-1 border-b border-dashed"></div>
-          <b>{{ totalPrice }} ₽</b>
+          <b class="text-lg text-indigo-600">{{ totalPrice }} ₽</b>
         </div>
-
-        <div class="flex gap-2">
+        <div class="flex justify-between items-center text-sm font-medium text-gray-600">
           <span>Налог 5%:</span>
-          <div class="flex-1 border-b border-dashed"></div>
-          <b>{{ vatPrice }} ₽</b>
+          <b class="text-gray-600">{{ vatPrice }} ₽</b>
         </div>
-        <button
-          :disabled="buttonDisabled"
-          @click="createOrder"
-          class="mt-4 bg-lime-500 w-full rounded-xl py-3 text-white disabled:bg-slate-400 hover:bg-lime-600 transition active:bg-lime-700 cursor-pointer"
-        >
-          Оформить заказ
-        </button>
       </div>
+      <button
+        :disabled="buttonDisabled"
+        @click="createOrder"
+        class="mt-4 bg-indigo-500 w-full rounded-lg py-2 text-white text-sm font-medium disabled:bg-gray-400 hover:bg-indigo-600 transition-colors duration-150 ease-in-out"
+      >
+        Оформить заказ
+      </button>
     </div>
   </div>
 </template>
